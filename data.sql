@@ -162,8 +162,44 @@ WHERE salary < 80000 AND salary > 40000;
 SELECT sum(products_sold) products
 FROM transaction;
 
---CHALLENGE 5 (INCOMPLETE)
-SELECT e.employee_id, e.first_name, e.last_name, sum(t.products_sold)
-FROM employee e 
+--CHALLENGE 5 
+SELECT e.employee_id, e.first_name, e.last_name, SUM(t.products_sold) AS total_products_sold
+FROM employee e
+JOIN transaction t ON e.employee_id = t.employee_id
+GROUP BY e.employee_id, e.first_name, e.last_name;
+
+--Starting here, I couldn't get mysql to work on my computer so I just eyeballed it meaning I couldn't troubleshoot it as much as i would want to, if these break something then i wouldnt know because i cant test it
+
+--CHALLENGE 6
+SELECT e.employee_id, e.first_name, e.last_name, SUM(t.amount)
+FROM employee e
 JOIN transaction t USING (employee_id)
-GROUP BY employee_id;
+GROUP BY e.employee_id, e.first_name, e.last_name;
+
+--CHALLENGE 7
+SELECT SUM(amount)
+FROM transaction
+WHERE DATE(transaction_date) = '2025-03-19';
+
+--CHALLENGE 8
+SELECT SUM(amount)
+FROM contract;
+
+--CHALLENGE 9
+SELECT e.employee_id, e.first_name, e.last_name, SUM(c.amount)
+FROM employee e
+JOIN contract c USING (employee_id_)
+GROUP BY e.employee_id, e.first_name, e.last_name;
+
+--CHALLENGE 10
+SELECT c.contract_id, e.first_name, e.last_name
+FROM contract c
+JOIN employee e USING (employee_id);
+
+--CHALLENGE 11
+SELECT *
+FROM contract
+WHERE completion_date > '2025-12-31';
+
+--CHALLENGE 12
+--couldnt figure this out in time sorry
